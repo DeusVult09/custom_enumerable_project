@@ -1,15 +1,24 @@
 module Enumerable
   def my_each_with_index
-  index = 0
+    index = 0
     self.my_each do |elem|
       yield(elem, index)
       index += 1
     end
+    self
   end
-  self
 
   def my_select
-    
+    arr = []
+    self.my_each do |elem|
+      if yield(elem)
+      arr << elem 
+      else
+        arr
+      end
+    end
+    arr
+  end
 end
 
 # You will first have to define my_each
