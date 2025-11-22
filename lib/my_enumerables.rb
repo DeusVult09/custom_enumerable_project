@@ -1,4 +1,5 @@
 module Enumerable
+  
   def my_each_with_index
     index = 0
     self.my_each do |elem|
@@ -11,14 +12,34 @@ module Enumerable
   def my_select
     arr = []
     self.my_each do |elem|
-      if yield(elem)
-      arr << elem 
-      else
-        arr
-      end
+      arr << elem if yield(elem)
     end
     arr
   end
+
+  def my_all?
+    self.my_each do |elem|
+      return false unless yield(elem)
+    end
+    true
+  end
+
+  def my_any?
+    self.my_each do |elem|
+      return true if yield(elem)
+    end
+    false
+  end
+
+  def my_none?
+    self.my_each do |elem|
+      return false if yield(elem) 
+    end
+    true
+  end
+
+  
+
 end
 
 # You will first have to define my_each
