@@ -1,5 +1,4 @@
 module Enumerable
-  
   def my_each_with_index
     index = 0
     self.my_each do |elem|
@@ -38,8 +37,31 @@ module Enumerable
     true
   end
 
-  
+  def my_count
+    i_count = 0
+    if block_given?
+      self.my_each  { |elem| i_count += 1 if yield(elem) }
+    else
+      self.my_each  { |elem| i_count += 1 }
+    end
+    i_count
+  end
 
+  def my_map
+    arr = []
+    self.my_each do |elem|
+      arr << yield(elem)
+    end
+    arr
+  end
+
+  def my_inject(init_value)
+    acc = init_value
+    self.my_each do |elem| 
+      acc = yield(acc, elem) 
+    end
+    acc
+  end
 end
 
 # You will first have to define my_each
